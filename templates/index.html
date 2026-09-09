@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}A Little Brighter — Art with a purpose{% endblock %}
+{% block content %}
+<section class="hero">
+  <div class="hero-copy">
+    <p class="eyebrow">ART WITH A PURPOSE</p>
+    <h1>Make your world<br><em>a little brighter.</em></h1>
+    <p class="hero-text">Beautiful art, meaningful products, and a mission to make mental-health care more accessible to people who need it.</p>
+    <div class="buttons">
+      <a class="button" href="{{ url_for('shop') }}">Shop the collection</a>
+      <a class="button secondary" href="{{ url_for('mission') }}">Learn about the mission</a>
+    </div>
+  </div>
+  <div class="hero-art">
+    <div class="sun-circle">✦</div>
+    <div class="floating-card card-one">a little<br>hope</div>
+    <div class="floating-card card-two">you matter<br>more than you know</div>
+  </div>
+</section>
+
+<section class="purpose">
+  <p class="eyebrow">WHY WE EXIST</p>
+  <h2>A purchase can be more than a purchase.</h2>
+  <p>We create art and everyday objects that bring a little joy into your life while contributing to a fund dedicated to improving access to mental-health care.</p>
+  <a href="{{ url_for('impact') }}" class="text-link">See how the fund works →</a>
+</section>
+
+<section class="products-section">
+  <div class="section-heading">
+    <div>
+      <p class="eyebrow">THE SHOP</p>
+      <h2>Little things, brighter days.</h2>
+    </div>
+    <a href="{{ url_for('shop') }}" class="text-link">View all →</a>
+  </div>
+  <div class="product-grid">
+    {% for product in products %}
+      {% include "_product_card.html" %}
+    {% endfor %}
+  </div>
+</section>
+
+<section class="impact-banner">
+  <div>
+    <p class="eyebrow">THE BIGGER PICTURE</p>
+    <h2>Because everyone deserves access to care.</h2>
+  </div>
+  <div class="impact-number">
+    <strong>$0</strong>
+    <span>raised so far</span>
+    <small>Replace with your real, verified figure.</small>
+  </div>
+</section>
+{% endblock %}

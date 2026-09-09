@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}A Little Brighter{% endblock %}</title>
+  <meta name="description" content="A Little Brighter — art with a purpose. Every purchase helps make mental-health care more accessible.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<header class="site-header">
+  <a class="logo" href="{{ url_for('home') }}">
+    <span class="sun">☼</span>
+    <span>A Little Brighter</span>
+  </a>
+  <nav>
+    <a href="{{ url_for('shop') }}">Shop</a>
+    <a href="{{ url_for('mission') }}">Our Mission</a>
+    <a href="{{ url_for('impact') }}">Our Impact</a>
+    <a href="{{ url_for('contact') }}">Contact</a>
+    <a class="cart-link" href="{{ url_for('cart') }}">Cart <span>{{ cart_count }}</span></a>
+  </nav>
+</header>
+
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <div class="flash">{{ messages[0] }}</div>
+  {% endif %}
+{% endwith %}
+
+<main>{% block content %}{% endblock %}</main>
+
+<footer>
+  <div>
+    <div class="footer-logo">A Little Brighter ☼</div>
+    <p>Art with a purpose.</p>
+  </div>
+  <div class="footer-links">
+    <a href="{{ url_for('shop') }}">Shop</a>
+    <a href="{{ url_for('mission') }}">Mission</a>
+    <a href="{{ url_for('impact') }}">Impact</a>
+    <a href="{{ url_for('contact') }}">Contact</a>
+  </div>
+  <p class="copyright">© 2026 A Little Brighter</p>
+</footer>
+</body>
+</html>

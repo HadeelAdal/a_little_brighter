@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Shop — A Little Brighter{% endblock %}
+{% block content %}
+<section class="page-header">
+  <p class="eyebrow">THE SHOP</p>
+  <h1>Things that make<br><em>life a little brighter.</em></h1>
+</section>
+<div class="filters">
+  {% for category in categories %}
+    <a class="{% if category == active_category %}active{% endif %}" href="{{ url_for('shop', category=category) }}">{{ category }}</a>
+  {% endfor %}
+</div>
+<section class="product-grid large">
+  {% for product in products %}
+    {% include "_product_card.html" %}
+  {% endfor %}
+</section>
+{% endblock %}

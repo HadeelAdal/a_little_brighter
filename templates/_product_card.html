@@ -1,0 +1,15 @@
+<article class="product-card">
+  <a href="{{ url_for('product', product_id=product.id) }}">
+    <div class="product-image"><img src="{{ product.image }}" alt="{{ product.name }}"></div>
+  </a>
+  <div class="product-info">
+    <div>
+      <p class="category">{{ product.category }}</p>
+      <h3>{{ product.name }}</h3>
+    </div>
+    <strong>${{ "%.2f"|format(product.price) }}</strong>
+  </div>
+  <form method="post" action="{{ url_for('add_to_cart', product_id=product.id) }}">
+    <button class="add-button" type="submit">Add to cart</button>
+  </form>
+</article>

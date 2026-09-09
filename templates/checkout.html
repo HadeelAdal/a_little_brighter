@@ -1,0 +1,341 @@
+{% extends "base.html" %}
+
+{% block title %}Checkout — A Little Brighter{% endblock %}
+
+{% block content %}
+
+<section class="page-header compact">
+  <p class="eyebrow">CHECKOUT</p>
+  <h1>Almost there.<br><em>Just a little difference.</em></h1>
+</section>
+
+{% if items %}
+
+<form method="post" action="{{ url_for('place_order') }}" class="checkout-form">
+
+  <div class="checkout-grid">
+
+<!-- CUSTOMER INFORMATION -->
+<div class="checkout-section">
+
+  <h2>Your information</h2>
+
+  <div class="form-row">
+
+    <div class="form-group">
+      <label for="first_name">First name</label>
+      <input
+        type="text"
+        id="first_name"
+        name="first_name"
+        autocomplete="given-name"
+        required
+      >
+    </div>
+
+    <div class="form-group">
+      <label for="last_name">Last name</label>
+      <input
+        type="text"
+        id="last_name"
+        name="last_name"
+        autocomplete="family-name"
+        required
+      >
+    </div>
+
+  </div>
+
+  <div class="form-group">
+    <label for="phone">Phone number</label>
+    <input
+      type="tel"
+      id="phone"
+      name="phone"
+      autocomplete="tel"
+      placeholder="+961 XX XXX XXX"
+      required
+    >
+  </div>
+
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input
+      type="email"
+      id="email"
+      name="email"
+      autocomplete="email"
+      required
+    >
+  </div>
+
+
+  <h2>Delivery address</h2>
+
+  <div class="form-group">
+    <label for="address">Address</label>
+    <input
+      type="text"
+      id="address"
+      name="address"
+      autocomplete="street-address"
+      placeholder="Street, building, floor..."
+      required
+    >
+  </div>
+
+  <div class="form-row">
+
+    <div class="form-group">
+      <label for="city">City / Area</label>
+      <input
+        type="text"
+        id="city"
+        name="city"
+        autocomplete="address-level2"
+        required
+      >
+    </div>
+
+    <div class="form-group">
+      <label for="country">Country</label>
+      <input
+        type="text"
+        id="country"
+        name="country"
+        value="Lebanon"
+        autocomplete="country-name"
+        required
+      >
+    </div>
+
+  </div>
+
+  <div class="form-group">
+    <label for="notes">
+      Delivery notes <span>(optional)</span>
+    </label>
+
+    <textarea
+      id="notes"
+      name="notes"
+      rows="3"
+      placeholder="Anything we should know about the delivery?"
+    ></textarea>
+  </div>
+
+</div>
+
+
+<!-- PAYMENT + ORDER -->
+<div class="checkout-section">
+
+  <h2>Payment method</h2>
+
+  <div class="payment-options">
+
+    <!-- CASH ON DELIVERY -->
+    <label class="payment-option">
+
+      <input
+        type="radio"
+        name="payment_method"
+        value="cod"
+        checked
+      >
+
+      <div class="payment-content">
+        <strong>Cash on Delivery</strong>
+        <span>Pay when your order arrives.</span>
+      </div>
+
+    </label>
+
+
+    <!-- CARD -->
+    <label class="payment-option">
+
+      <input
+        type="radio"
+        name="payment_method"
+        value="card"
+      >
+
+      <div class="payment-content">
+        <strong>Card</strong>
+        <span>Pay securely by card.</span>
+      </div>
+
+    </label>
+
+
+    <!-- WHISH -->
+    <label class="payment-option">
+
+      <input
+        type="radio"
+        name="payment_method"
+        value="whish"
+      >
+
+      <div class="payment-content">
+        <strong>Whish Money</strong>
+        <span>Pay using Whish.</span>
+      </div>
+
+    </label>
+
+  </div>
+
+
+  <!-- CASH ON DELIVERY -->
+  <div id="cod-details" class="payment-details">
+
+    <h3>Cash on Delivery</h3>
+
+    <p>
+      You will pay the delivery person when your order arrives.
+    </p>
+
+  </div>
+
+
+  <!-- CARD -->
+<div id="card-details" class="payment-details">
+
+    <h3>Pay securely by card</h3>
+
+    <p>
+        You will be redirected to our secure payment provider
+        to complete your payment.
+    </p>
+
+    <p>
+        We never see or store your card number or security code.
+    </p>
+
+</div>
+
+
+  <!-- WHISH -->
+  <div id="whish-details" class="payment-details">
+
+    <h3>Whish Money</h3>
+
+    <p>
+      After placing your order, you will receive instructions
+      for completing your payment through Whish.
+    </p>
+
+    <p>
+      Please keep your order number as your payment reference.
+    </p>
+
+  </div>
+
+
+  <!-- ORDER SUMMARY -->
+  <div class="checkout-summary">
+
+    <h2>Order summary</h2>
+
+    {% for item in items %}
+
+    <div class="checkout-item">
+
+      <span>
+        {{ item.name }} × {{ item.quantity }}
+      </span>
+
+      <strong>
+        ${{ "%.2f"|format(item.subtotal) }}
+      </strong>
+
+    </div>
+
+    {% endfor %}
+
+    <div class="checkout-total">
+
+      <span>Total</span>
+
+      <strong>
+        ${{ "%.2f"|format(total) }}
+      </strong>
+
+    </div>
+
+  </div>
+
+
+  <button class="button checkout-button" type="submit">
+    Place order · ${{ "%.2f"|format(total) }}
+  </button>
+
+  <p class="checkout-note">
+    Your purchase helps support mental health access through
+    A Little Brighter.
+  </p>
+
+</div>
+
+  </div>
+
+</form>
+
+{% else %}
+
+<div class="empty-cart">
+
+  <h2>Your cart is empty.</h2>
+
+  <a class="button" href="{{ url_for('shop') }}">
+    Explore the shop
+  </a>
+
+</div>
+
+{% endif %}
+
+<script>
+
+const paymentOptions = document.querySelectorAll(
+  'input[name="payment_method"]'
+);
+
+const codDetails = document.getElementById("cod-details");
+const cardDetails = document.getElementById("card-details");
+const whishDetails = document.getElementById("whish-details");
+
+
+function updatePaymentDetails() {
+
+  const selected = document.querySelector(
+    'input[name="payment_method"]:checked'
+  );
+
+  if (!selected) return;
+
+  codDetails.style.display =
+    selected.value === "cod" ? "block" : "none";
+
+  cardDetails.style.display =
+    selected.value === "card" ? "block" : "none";
+
+  whishDetails.style.display =
+    selected.value === "whish" ? "block" : "none";
+}
+
+
+paymentOptions.forEach(option => {
+
+  option.addEventListener("change", updatePaymentDetails);
+
+});
+
+
+updatePaymentDetails();
+
+</script>
+
+{% endblock %}
